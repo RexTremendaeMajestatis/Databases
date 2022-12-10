@@ -1,0 +1,52 @@
+-- 1
+LPUSH elements "He" "H" "O" "Fe"
+
+LRANGE elements 0 3
+
+HSET hash_elements He "Hellium" H "Hygrogen" O "Oxigen" Fe "Ferrum"
+
+HKEYS hash_elements
+
+-- 2
+SADD movies "Why_women_kill" "Kill_Bill" "Harry_Potter" "Saw" "Geisterwoid"
+
+HSET Why_women_kill release 2019
+HSET Kill_Bill release 2005
+HSET Harry_Potter release 2004
+HSET Saw release 2001
+HSET Geisterwoid release 1999
+
+SORT movies BY *->release
+
+-- 3
+SADD popular "New_York" "Saint-Petersburg" "Berlin" "Phuket" "Luxemburg"
+SADD visited "Moscow" "Saint-Petersburg" "Kairo" "Budapest" "Bareclona"
+SADD wished "Luxemburg" "Berlin"
+
+SDIFFSTORE popular_not_visited popular visited
+
+SINTER popular_not_visited wished
+SDIFF visited popular
+SUNION visited wished
+
+-- 4
+SET ab "ab"
+SET res ab
+
+APPEND res ab
+
+SETRANGE res 1 ab
+SETRANGE res 0 ab
+
+APPEND res ab
+SETRANGE res 5 ab
+SETRANGE res 6 ab
+
+GET res
+
+-- 5
+ZADD students 5.0 Kizhnerov 4.33 Ermak 4.66 Turin 3.0 Gamkrelidze 2.0 Stepanov 3.5 Aliev 5.0 Vlasova 4.0 Eremenko
+
+ZRANGE students 0 -1
+
+ZRANGE students 4 5

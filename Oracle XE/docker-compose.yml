@@ -1,7 +1,7 @@
 version: "3.9"
 services:
-  ORACLE_XE:
-    container_name: oracle_db
+  Oracle_XE:
+    container_name: oracle_xe
     image: container-registry.oracle.com/database/express:21.3.0-xe
     volumes:
       - ./data:/opt/oracle/oradata
