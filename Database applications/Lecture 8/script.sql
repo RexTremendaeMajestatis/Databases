@@ -1,0 +1,77 @@
+CREATE TABLE Client
+(
+    ID NUMBER NOT NULL,
+    Name VARCHAR(64) NOT NULL,
+    Address VARCHAR(64) NOT NULL,
+    Phone VARCHAR(32) NOT NULL,
+    Email VARCHAR(64) NOT NULL,
+    CONSTRAINT Client_PK PRIMARY KEY (ID)
+)
+/
+
+CREATE TABLE Employee
+(
+    ID NUMBER NOT NULL,
+    Name VARCHAR(64) NOT NULL,
+    Address VARCHAR(64) NOT NULL,
+    Phone VARCHAR(32) NOT NULL,
+    Email VARCHAR(64) NOT NULL,
+    CONSTRAINT Employee_PK PRIMARY KEY (ID)
+)
+/
+
+CREATE TABLE Book
+(
+    ID NUMBER NOT NULL,
+    Name VARCHAR(64) NOT NULL,
+    Category VARCHAR(32) NOT NULL,
+    Author VARCHAR(64) NOT NULL,
+    Year NUMBER NOT NULL,
+    Price NUMBER NOT NULL,
+    Status VARCHAR(64) NOT NULL,
+    CONSTRAINT Book_PK PRIMARY KEY (ID)
+)
+/
+
+CREATE TABLE Request
+(
+    ID NUMBER NOT NULL,
+    Status VARCHAR(64) NOT NULL,
+    Client_ID NUMBER NOT NULL,
+    Book_ID NUMBER NOT NULL,
+    CONSTRAINT Request_PK PRIMARY KEY (ID),
+    CONSTRAINT Request_client_FK FOREIGN KEY (Client_ID) REFERENCES Client(ID),
+    CONSTRAINT Request_book_FK FOREIGN KEY (Book_ID) REFERENCES Book(ID)
+)
+/
+
+CREATE TABLE Issue
+(
+    ID NUMBER NOT NULL,
+    Client_ID NUMBER NOT NULL,
+    Employee_ID NUMBER NOT NULL,
+    Issue_date DATE NOT NULL,
+    Return_date DATE NOT NULL,
+    Book_ID NUMBER NOT NULL,
+    Request_ID NUMBER NOT NULL,
+    CONSTRAINT Issue_PK PRIMARY KEY (ID),
+    CONSTRAINT Issue_client_FK FOREIGN KEY(Client_ID) REFERENCES Client(ID),
+    CONSTRAINT Issue_employee_FK FOREIGN KEY (Employee_ID) REFERENCES Employee(ID),
+    CONSTRAINT Issue_book_FK FOREIGN KEY (Book_ID) REFERENCES Book(ID),
+    CONSTRAINT Issue_request_FK FOREIGN KEY (Request_ID) REFERENCES Request(ID)
+)
+/
+
+CREATE TABLE Return
+(
+    ID NUMBER NOT NULL,
+    Client_ID NUMBER NOT NULL,
+    Employee_ID NUMBER NOT NULL,
+    Issue_ID NUMBER NOT NULL,
+    True_return_date DATE NOT NULL,
+    CONSTRAINT Return_PK PRIMARY KEY(ID),
+    CONSTRAINT Return_client_FK FOREIGN KEY (Client_ID) REFERENCES Client(ID),
+    CONSTRAINT Return_employee_FK FOREIGN KEY (Employee_ID) REFERENCES Employee(ID),
+    CONSTRAINT Return_issue_FK FOREIGN KEY (Issue_ID) REFERENCES Issue(ID)
+)
+/
